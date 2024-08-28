@@ -1,0 +1,29 @@
+.landingContainer{
+    width: 100%;
+    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    flex-direction: row;
+    margin-bottom: 2rem;
+    border-radius: 0 0 100px 100px;
+}
+.landingContainerDark{
+    background-color: #cee5ff;
+}
+.landingContainerLight{
+    background-color: #d3d3d3;
+}
+.landingRightContainer{
+padding: 1rem;
+height: inherit;
+}
+.landingVideoContainer{
+
+border-radius:12px;
+height: 95%;
+
+
+
+}
