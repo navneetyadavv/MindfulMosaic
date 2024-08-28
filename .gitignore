@@ -20,9 +20,6 @@ MindfulMosaic-backend/.env.local
 MindfulMosaic-backend/.env.*.local
 MindfulMosaic-backend/react-blogging-52b70-firebase-adminsdk-8kfmz-9325587be1.json
 
-# Build output
-MindfulMosaic-frontend/dist/
-MindfulMosaic-backend/dist/
 
 # Editor directories and files
 .vscode/*
