@@ -3,17 +3,12 @@ import mongoose from 'mongoose'
 import 'dotenv/config'
 import cors from 'cors'
 import admin from 'firebase-admin'
-import {v2 as cloudinary} from 'cloudinary'
+import { v2 as cloudinary } from 'cloudinary'
 import fileUpload from 'express-fileupload'
-// import serviceAccountKey from './react-blogging-52b70-firebase-adminsdk-8kfmz-9325587be1.json'
-import fs from 'fs';
-const serviceAccountKey = JSON.parse(fs.readFileSync('./react-blogging-52b70-firebase-adminsdk-8kfmz-9325587be1.json', 'utf-8'));
 import { ErrorThrow } from './utils/error.js'
 import BlogRouter from './routes/blogRoutes.js'
 import userRouter from './routes/userRoutes.js'
 import notificationRouter from './routes/notification.js'
-
-
 
 const server = express();
 server.use(express.json())
@@ -23,6 +18,9 @@ server.use(fileUpload({
 let PORT = 3000;
 
 server.use(cors())
+
+
+const serviceAccountKey = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccountKey)
 })
@@ -33,48 +31,40 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-
 mongoose.connect(process.env.DB_CONNECTION, {
     autoIndex: true
-}).then(()=>{
+}).then(() => {
     console.log("Database connected Successfully")
-}).catch((err)=>{
+}).catch((err) => {
     console.error(err)
 })
 
-
-
-server.get('/', (req, res) =>{
+server.get('/', (req, res) => {
     res.send("Hello from the server side")
 })
 
-
-server.post('/upload-image' , async (req, res)=>{
-    try{
-        const {image} = req.files;
-        await cloudinary.uploader.upload(image.tempFilePath, (err, result)=>{
-            if(err){
-                return res.status(500).json({error: err})
-            }
-            else{
-                return res.status(202).json({"url": result.url})
+server.post('/upload-image', async (req, res) => {
+    try {
+        const { image } = req.files;
+        await cloudinary.uploader.upload(image.tempFilePath, (err, result) => {
+            if (err) {
+                return res.status(500).json({ error: err })
+            } else {
+                return res.status(202).json({ "url": result.url })
             }
         })
-    } 
-    catch(err){
+    } catch (err) {
         console.log(err.message)
-        res.status(500).json({error: err.message})
+        res.status(500).json({ error: err.message })
     }
 })
-
 
 server.use(userRouter)
 server.use(BlogRouter)
 server.use(notificationRouter)
 
-
 server.use(ErrorThrow)
 
-server.listen(PORT, ()=>{
-    console.log("Listing on port ->" + PORT)
+server.listen(PORT, () => {
+    console.log("Listening on port ->" + PORT)
 })
