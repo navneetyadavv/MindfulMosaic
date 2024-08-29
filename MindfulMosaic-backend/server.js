@@ -9,6 +9,8 @@ import { ErrorThrow } from './utils/error.js'
 import BlogRouter from './routes/blogRoutes.js'
 import userRouter from './routes/userRoutes.js'
 import notificationRouter from './routes/notification.js'
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const server = express();
 server.use(express.json())
@@ -18,6 +20,12 @@ server.use(fileUpload({
 let PORT = 3000;
 
 server.use(cors())
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(express.static(path.resolve(__dirname, 'dist')));
+
 
 
 const serviceAccountKey = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_KEY);
