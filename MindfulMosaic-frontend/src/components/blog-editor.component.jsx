@@ -4,7 +4,6 @@ import fullLogo from '../imgs/full-logo.png'
 import AnimationWrapper from "../common/page-animation";
 import lightBanner from "../imgs/blog banner light.png";
 import darkBanner from "../imgs/blog banner dark.png";
-
 import { Toaster, toast } from "react-hot-toast";
 import { EditorContext } from "../pages/editor.pages";
 import EditorJS from "@editorjs/editorjs";

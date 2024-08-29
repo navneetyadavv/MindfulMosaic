@@ -105,7 +105,6 @@ const ProfilePage = () => {
   };
   return (
     <AnimationWrapper>
-        {/* <Toaster/> */}
       {
         loading ? <Loader /> : 
             profile_username.length ? 
