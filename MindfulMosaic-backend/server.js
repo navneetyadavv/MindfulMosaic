@@ -32,7 +32,21 @@ server.use(fileUpload({
 }))
 let PORT = 3000;
 
-server.use(cors())
+const allowedOrigins = [
+  'https://mindful-mosaic.vercel.app', 
+  'http://localhost:3000'              
+];
+
+server.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
