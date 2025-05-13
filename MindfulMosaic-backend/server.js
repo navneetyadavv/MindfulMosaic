@@ -34,7 +34,7 @@ let PORT = 3000;
 
 const allowedOrigins = [
   'https://mindful-mosaic.vercel.app', 
-  'http://localhost:3000'              
+  'http://localhost:5173'              
 ];
 
 server.use(cors({
